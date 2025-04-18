@@ -6,6 +6,8 @@ import projectRoutes from './routes/projects.routes.js'
 import cookieParser from 'cookie-parser';
 import aiRoutes from './routes/ai.routes.js'
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
 
 connect();
 
