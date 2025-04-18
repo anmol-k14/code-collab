@@ -78,8 +78,6 @@ CollabCode/
 │   ├── tailwind.config.js
 │   ├── vercel.json
 │   └── vite.config.js
-├── package-lock.json
-└── package.json
 ```
 
 ## Backend
