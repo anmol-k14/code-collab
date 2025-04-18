@@ -32,7 +32,7 @@ export const createUserController = async (req, res) => {
 
     try {
         const user = await userService.createUser(req.body);
-        const token = user.generateJWT(); // ✅ Now it's safe
+        const token = user.generateJWT(); 
 
         console.log(token);
         delete user._doc.password;
