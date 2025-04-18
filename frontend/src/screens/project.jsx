@@ -97,6 +97,18 @@ const project = () => {
 
       appendIncomingMessage(data);
     });
+    receiveMessage("file-updated", (data) => {
+      const { fileName, contents } = data;
+    
+      setFileTree((prev) => ({
+        ...prev,
+        [fileName]: {
+          file: {
+            contents,
+          },
+        },
+      }));
+    });
 
     axios
       .get(`/projects/get-project/${location.state.project._id}`)
@@ -380,6 +392,12 @@ const project = () => {
                       };
                       setFileTree(ft);
                       saveFileTree(ft);
+                      sendMessage("file-updated", {
+                        fileName: currentFile,
+                        contents: updatedContent,
+                        sender: user,
+                      }); 
+
                     }}
                     dangerouslySetInnerHTML={{
                       __html: hljs.highlight(
@@ -415,7 +433,7 @@ const project = () => {
       </section>
 
       {isModalOpen && (
-        <div className="add_collaborator fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="add_collaborator fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
           <div className="bg-[#1f2c41] p-4 rounded-md w-96 max-w-full relative">
             <header className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">Select User</h2>
@@ -455,3 +473,4 @@ const project = () => {
 };
 
 export default project;
+

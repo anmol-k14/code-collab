@@ -10,11 +10,7 @@
 
       {
         "src": "/(.*)",
-        "dest": "server.js",
-        "methods": ["GET","POST","OPTIONS","PUT"],
-        "headers":{
-          "Access-Control-Allow-Origin":"*"
-        }
+        "dest": "server.js"
       }
     ]
   }

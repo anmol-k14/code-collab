@@ -3,25 +3,47 @@ import * as userService from "../services/user.service.js"
 import { validationResult } from "express-validator";
 import redisClient from "../services/redis.service.js";
 
-export const createUserController= async(req,res)=>{
+//export const createUserController= async(req,res)=>{
+//     const errors = validationResult(req);
+//     const user = req.user;
+//     const token = await user.generateJWT();
+
+//     if (!errors.isEmpty()) {
+//         return res.status(400).json({ errors: errors.array() });
+//     }
+//     try {
+//         const user = await userService.createUser(req.body);
+
+//         console.log(token)
+//         delete user._doc.password;
+
+//         res.status(201).json({ user, token });
+//     } catch (error) {
+//         res.status(400).send(error.message);
+//     }
+
+// }
+export const createUserController = async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
+
     try {
         const user = await userService.createUser(req.body);
+        const token = user.generateJWT(); // ✅ Now it's safe
 
-        const token = await user.generateJWT();
-
+        console.log(token);
         delete user._doc.password;
 
         res.status(201).json({ user, token });
     } catch (error) {
-        res.status(400).send(error.message);
+        console.log(error)
+        res.status(400).json({ error: error.message });
     }
+};
 
-}
 
 export const loginController=async(req,res)=>{
 

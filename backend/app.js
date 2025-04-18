@@ -4,7 +4,6 @@ import connect from './db/db.js';
 import userRoutes from './routes/user.routes.js'
 import projectRoutes from './routes/projects.routes.js'
 import cookieParser from 'cookie-parser';
-import cors from 'cors'
 import aiRoutes from './routes/ai.routes.js'
 
 connect();
@@ -12,7 +11,6 @@ connect();
 
 const app = express();
 
-app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));

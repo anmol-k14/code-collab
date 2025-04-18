@@ -103,6 +103,9 @@ io.on('connection', socket => {
 
         // socket.broadcast.to(socket.roomId).emit('project-message', data);
     });
+    socket.on('file-updated', (data) => {
+        socket.broadcast.to(socket.roomId).emit('file-updated', data);
+      });
 
     socket.on('event', data => { /* … */ });
     socket.on('disconnect', () => { /* … */ });

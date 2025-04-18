@@ -16,7 +16,6 @@ function AppRoutes() {
             <Route path="/register" element={<Register/>}></Route>
             <Route path="/project" element={ <Project/>}></Route>
 
-
           </Routes>
         </BrowserRouter>
       </>

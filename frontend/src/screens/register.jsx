@@ -20,7 +20,12 @@ const Login = () => {
       axios.post('/users/register', {
           email,
           password
-      }).then((res) => {
+      },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure token is included
+      }
+    }).then((res) => {
           console.log(res.data)
           localStorage.setItem('token',res.data.token)
           setUser(res.data.user)
