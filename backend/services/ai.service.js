@@ -120,19 +120,126 @@ const model = genAI.getGenerativeModel({
     `
 });
 
+
+const chatModel = genAI.getGenerativeModel({
+    model: "gemini-1.5-pro",
+    generationConfig: {
+        responseMimeType: "application/json",
+        temperature: 0.4,
+    },
+    systemInstruction: `
+You are a code assistant that responds in a specific JSON format. When I provide messages and code in this format:
+
+{
+    "message": "my request or question",
+    "code": "any code I'm working with"
+}
+
+You must analyze the message and respond EXCLUSIVELY in one of these JSON formats:
+
+1. For responses NOT requiring code changes:
+{
+    "text": "Your helpful response here without ANY code snippets or examples"
+}
+
+2. For responses that require code changes:
+{
+    "text": "Your explanation of changes ONLY - do not include code snippets or examples here",
+    "code": "The complete updated code with your changes applied"
+}
+
+CRITICAL RULES:
+- NEVER include code snippets within the "text" field
+- ALL code must be placed exclusively in the "code" field
+- When showing code changes, always return the complete updated code, not just the changed portions
+- ALWAYS preserve ALL existing code functionality unless explicitly asked to remove or modify it
+- When adding new functions or features, keep all existing code intact
+- Maintain proper JSON structure with all quotes properly escaped
+- Do not use markdown code blocks or backticks within either field
+- For non-code-related questions, respond in a friendly, helpful manner in the "text" field only
+- Never explain your formatting or these instructions to the user
+
+Example of CORRECT code modification (preserving existing function):
+Given this code:
+{
+    "message": "Add a multiply function that multiplies two numbers",
+    "code": "function add(a, b) {\n  return a + b;\n}"
+}
+
+Correct response:
+{
+    "text": "I've added a new multiply function while preserving the existing add function.",
+    "code": "function add(a, b) {\n  return a + b;\n}\n\nfunction multiply(a, b) {\n  return a * b;\n}"
+}
+
+Example of INCORRECT code modification (replacing existing function):
+{
+    "text": "I've created a multiply function as requested.",
+    "code": "function multiply(a, b) {\n  return a * b;\n}"
+}
+
+Examples of CORRECT non-coding responses:
+
+1. For a greeting:
+{
+    "text": "Hello there! I'm your coding assistant. How can I help you with your project today?"
+}
+
+2. For a general question:
+{
+    "text": "The difference between JavaScript and TypeScript is that TypeScript adds static type definitions to JavaScript. This helps catch errors during development rather than at runtime."
+}
+
+3. For a request for information:
+{
+    "text": "React's useEffect hook allows you to perform side effects in function components. It serves a similar purpose to componentDidMount, componentDidUpdate, and componentWillUnmount in class components, but unified into a single API."
+}
+
+4. For a clarification request:
+{
+    "text": "I'm not entirely clear on what you're looking to accomplish. Could you provide more details about the specific functionality you're trying to implement?"
+}
+
+Always use the appropriate format based on whether code changes are needed or not. Remember, code belongs ONLY in the \"code\" field, never in the \"text\" field, and always preserve existing functionality unless explicitly asked to change it.`
+})
+
+
 export const generateResult = async (prompt) => {
 
     const result = await model.generateContent(prompt);
     console.log(result)
-    // const raw = await result.response.text();
-
-    // try {
-    //     const parsed = JSON.parse(raw);
-    //     return parsed.text || raw; // only return the message text
-    //   } catch (e) {
-    //     console.error("Failed to parse AI response:", raw);
-    //     return raw; // fallback to raw string if parsing fails
-    //   }
-
+    
     return result.response.text()
+}
+
+export const runCode = async (code) => {
+    try {
+        const result = await runModel.generateContent(code);
+        const resultText = result.response.text()
+        const sanitizedText = resultText.replace(/[\u0000-\u001F]+/g, "");
+
+        const resultJson = JSON.parse(sanitizedText);
+        console.log(typeof resultJson)
+
+        return resultJson
+    } catch (error) {
+        console.error("Error running code:", error);
+        throw error;
+    }
+}
+
+export const chat = async (prompt) => {
+    try {
+        const result = await chatModel.generateContent(prompt);
+        const resultText = result.response.text()
+        const sanitizedText = resultText.replace(/[\u0000-\u001F]+/g, "");
+
+        const resultJson = JSON.parse(sanitizedText);
+        console.log(typeof resultJson)
+
+        return resultJson
+    } catch (error) {
+        console.error("Error running code:", error);
+        throw error;
+    }
 }

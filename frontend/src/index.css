@@ -14,6 +14,11 @@ body{
   width: 100%;
 }
 
+.cm-theme-dark{
+  margin: 0px;
+  padding: 0px;
+}
+
 
 * {
   padding: 0px;
