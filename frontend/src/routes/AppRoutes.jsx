@@ -5,6 +5,7 @@ import Home from "../screens/home.jsx";
 import Register from "../screens/register.jsx";
 import Project from "../screens/project.jsx";
 import Homedev from "../pages/Homedev.jsx"
+import NotFound from "../pages/notFound.jsx";
 // import UserAuth from "../auth/UserAuth.jsx";
 
 function AppRoutes() {
@@ -18,6 +19,7 @@ function AppRoutes() {
             <Route path="/project" element={ <Project/>}></Route> */}
 
             <Route path="/" element={<Homedev/>} ></Route>
+            <Route path="/notfound" element={<NotFound/>} ></Route>
           </Routes>
         </BrowserRouter>
       </>

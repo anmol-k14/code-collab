@@ -5,11 +5,13 @@ import CodeEditor from "../components/codeEditor.jsx";
 import Button from "../components/button.jsx";
 import SelectLang from "../components/selectLang.jsx";
 // import axios from "../config/axios";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import ChatWidget from "../components/aiChatSection.jsx";
-
+import notFound from "./notFound.jsx";
 import { useState } from "react";
 import axios from "axios";
+
 
 const Homedev = () => {
   const [Language, setLanguage] = useState("javascript"); // Default language
@@ -19,7 +21,8 @@ const Homedev = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [langid, setlangid] = useState(63);
-
+  
+  const navigate=useNavigate();
 
   const options = {
     method: "POST",
@@ -44,7 +47,6 @@ const Homedev = () => {
   async function handleRunCode() {
     try {
       const response = await axios.request(options);
-      console.log(response.data);
 
       fetchData(response.data.token); // Call fetchData with the token from the response
     } catch (error) {
@@ -78,7 +80,6 @@ const Homedev = () => {
         const stdout = atob(response.data.stdout || "");
         const stderr = atob(response.data.stderr || "");
         const compile_output = atob(response.data.compile_output || "");
-        console.log(response.data);
 
         if (stderr) {
           setOutput(stderr); // Set error output
@@ -90,19 +91,13 @@ const Homedev = () => {
           setOutput(stdout); // Set standard output
           setIsError(false); // Reset error state
         }
-        console.log("stdout", stdout);
-        console.log(stderr);
-        console.log("Compile Output:", compile_output);
+
       }
     } catch (error) {
       console.error("Fetch error:", error);
     }
   }
 
-  useEffect(() => {
-    console.log(langid);
-    console.log("Output state updated:", output);
-  }, [output, langid]);
 
   return (
     <>

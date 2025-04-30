@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { MessageSquare, X, Copy, Send } from 'lucide-react';
+import { MessageSquare, X, Copy, Send, Bot } from 'lucide-react';
 import axios from '../config/axios'; // Adjust the import based on your axios config
 
 export default function ChatWidget({setCode, code}) {
@@ -55,7 +55,6 @@ export default function ChatWidget({setCode, code}) {
         code: code
       })
 
-      console.log(response.data)
       
 
       const data = response.data;
@@ -114,7 +113,7 @@ export default function ChatWidget({setCode, code}) {
         onClick={toggleChat}
         className="flex items-center justify-center w-12 h-12 rounded-full bg-[#C84F19] text-white shadow-lg hover:bg-[#ca6a3e] transition-all"
       >
-        {isOpen ? <X size={20} /> : <MessageSquare size={20} />}
+        {isOpen ? <X size={20} /> : <Bot size={20} />}
       </button>
 
       {/* Chat panel */}
