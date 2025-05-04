@@ -28,12 +28,15 @@ router.put('/add-user',
 router.get('/get-project/:projectId',
     authMiddleWare.authUser,
     projectController.getProjectById
+
 )
 
 router.put('/update-file-tree',
     authMiddleWare.authUser,
     body('projectId').isString().withMessage('Project ID is required'),
-    body('fileTree').isObject().withMessage('File tree is required'),
+    body('code').isString().withMessage('Code is required'),
+    body('lang').isString().withMessage('Language is required'),
+    body('langId').isNumeric().withMessage('Language ID is required'),
     projectController.updateFileTree
 )
 

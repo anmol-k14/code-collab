@@ -16,9 +16,17 @@ const projectSchema = new mongoose.Schema({
             ref: 'user'
         }
     ],
-    fileTree: {
-        type: Object,
-        default: {}
+    code: {
+        type: String,
+        default: 'console.log("Hello, JavaScript!");'
+    },
+    lang: {
+        type: String,
+        default: 'javascript'
+    },
+    langId: {
+        type: Number,
+        default: 63
     },
 
 })

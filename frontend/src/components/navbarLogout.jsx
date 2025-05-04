@@ -1,8 +1,13 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const navbar = () => {
+const navbarLogout = () => {
   const navigate=useNavigate();
+
+    const handlelogout=()=>{
+        localStorage.removeItem('token');
+        navigate('/login')
+        }
   return (
     <>
     <nav className=' text-white px-6 py-4 flex justify-between items-center h-[8%] '>
@@ -16,8 +21,8 @@ const navbar = () => {
         <li onClick={()=>{navigate('/about')}} className='hover:text-[#C84F19] cursor-pointer'>About</li>
         <li onClick={()=>{navigate('/contact')}} className='hover:text-[#C84F19] cursor-pointer'>Contact</li>
       </ul>
-      <button onClick={()=>{navigate('/login')}} className="px-6 py-2 border-[1px] border-[#696969] rounded-full text-white font-semibold bg-[radial-gradient(circle_at_center,_#363636,#0000)] hover:scale-105 transition-all duration-300">
-      Login
+      <button onClick={handlelogout} className="px-6 py-2 border-[1px] border-[#696969] rounded-full text-white font-semibold bg-[radial-gradient(circle_at_center,_#363636,#0000)] hover:scale-105 transition-all duration-300">
+      Logout
     </button>
     </nav>
     <div className='w-full h-[2px] bg-[#000000]'></div>
@@ -27,4 +32,4 @@ const navbar = () => {
   )
 }
 
-export default navbar
+export default navbarLogout

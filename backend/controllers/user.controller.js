@@ -59,7 +59,7 @@ export const loginController=async(req,res)=>{
 
         if(!user){
             return res.status(401).json({
-                errors: 'Invalid email'
+                errors: 'Email not registered'
             })
         }
 

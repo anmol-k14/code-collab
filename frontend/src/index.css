@@ -30,7 +30,7 @@ body{
 .wrapper {
   width: 100%;
   height: 100vh;
-  background-color: #111927; /* #2b2738;*/
+  background-color: #232323; /* #2b2738;*/
   display: flex;
 }
 .left {
@@ -47,13 +47,14 @@ body{
   justify-content: center;
   align-items: center;
   /* glaasmorphism */
-  background-color: #111927;
-  background-image: radial-gradient(
+  background-color: #232323;
+  /* background-image: radial-gradient(
       at 47% 33%,
-      hsl(255, 28.000000000000004%, 39%) 0,
+      #aa421276 0,
       transparent 59%
     ),
-    radial-gradient(at 82% 65%, hsl(218, 39%, 11%) 0, transparent 55%);
+    radial-gradient(at 82% 65%, #232323 0, transparent 55%); */
+   
 }
 .form {
   width: 80%;
@@ -75,22 +76,23 @@ body{
 }
 
 #inp:focus {
-  box-shadow: 0 0 0 1px #9d8bcc; /* Custom outline effect */
-  border-color: #9d8bcc; /* Optional: Change border color */
+  box-shadow: 0 0 0 1px #c4744f; /* Custom outline effect */
+  border-color: #c4744f; 
 }
 
 #inp:hover {
-  box-shadow: 0 0 0 1px #9d8bcc; /* Custom outline effect */
-  border-color: #9d8bcc; /* Optional: Change border color */
+  box-shadow: 0 0 0 1px #c4744f; 
+  border-color: #c4744f;
 }
 
 input {
+  
   font-size: 20px;
   outline: none;
 }
 
 .btn {
-  background-color: #6e54b5;
+  background-color: #C84F19;
   border-radius: 5px;
   border-style: none;
   box-shadow: rgba(245, 244, 247, 0.25) 0 1px 1px inset;
@@ -119,11 +121,7 @@ input {
 
 /*editor page*/
 
-.home{
-  background-color: #111927;
-  height: 100vh;
-  width: 100vw;
-}
+
 
 /* hide scrollbar across browsers */
 .scrollbar-hide::-webkit-scrollbar {

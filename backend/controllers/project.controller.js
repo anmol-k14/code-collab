@@ -88,15 +88,15 @@ export const addUserToProject = async (req, res) => {
 
 export const getProjectById = async (req, res) => {
 
+    console.log(req.params)
     const { projectId } = req.params;
+    console.log("jjjj")
 
     try {
 
         const project = await projectService.getProjectById({ projectId });
-
-        return res.status(200).json({
-            project
-        })
+        console.log(project)
+        return res.status(200).json(project)
 
     } catch (err) {
         console.log(err)
@@ -114,11 +114,13 @@ export const updateFileTree = async (req, res) => {
 
     try {
 
-        const { projectId, fileTree } = req.body;
+        const { projectId, code, lang, langId } = req.body;
 
         const project = await projectService.updateFileTree({
             projectId,
-            fileTree
+            code,
+            lang,
+            langId
         })
 
         return res.status(200).json({
