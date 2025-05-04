@@ -45,6 +45,11 @@ const ProjectButtons = ({ setCode, code, project }) => {
       .put("/projects/add-user", {
         projectId: location.state?.project?._id,
         users: user,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       })
       .then((res) => {
         console.log(res.data);
@@ -72,7 +77,11 @@ const ProjectButtons = ({ setCode, code, project }) => {
     };
 
     axios
-    .get("/users/all")
+    .get("/users/all",{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
     .then((res) => {
       const fetchedUsers = res.data.users;
       setUsers(fetchedUsers);;

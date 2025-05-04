@@ -34,6 +34,11 @@ const MyProjectPage = () => {
         code: code,
         lang: Language,
         langId: langid
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     }).then(res => {
         console.log("Code updated:",res.data)
     }).catch(err => {
@@ -49,7 +54,13 @@ const fetchProject = async () => {
       console.error("Project ID not found");
       return;
     }
-    const response = await axiosConfig.get(`/projects/get-project/${projectId}`);
+    const response = await axiosConfig.get(`/projects/get-project/${projectId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     const projectData = response.data;
 
     setProject(projectData); // Set the project data
