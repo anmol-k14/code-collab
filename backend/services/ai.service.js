@@ -122,7 +122,7 @@ const model = genAI.getGenerativeModel({
 
 
 const chatModel = genAI.getGenerativeModel({
-    model: "gemini-1.5-pro",
+    model: "gemini-1.5-flash-8b",
     generationConfig: {
         responseMimeType: "application/json",
         temperature: 0.4,
