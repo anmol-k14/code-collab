@@ -40,7 +40,6 @@ const MyProjectPage = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     }).then(res => {
-        console.log("Code updated:",res.data)
     }).catch(err => {
         console.log("Error updatind code",err)
     })
@@ -51,7 +50,6 @@ const fetchProject = async () => {
   try {
     const projectId = location.state?.project?._id; // Get projectId from location.state
     if (!projectId) {
-      console.error("Project ID not found");
       return;
     }
     const response = await axiosConfig.get(`/projects/get-project/${projectId}`,

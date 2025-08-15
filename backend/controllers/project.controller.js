@@ -33,7 +33,7 @@ export const createProject = async (req, res) => {
 
 export const getAllProject = async (req, res) => {
     try {
-
+        console.log("hi");
         const loggedInUser = await userModel.findOne({
             email: req.user.email
         })
@@ -41,6 +41,7 @@ export const getAllProject = async (req, res) => {
         const allUserProjects = await projectService.getAllProjectByUserId({
             userId: loggedInUser._id
         })
+        console.log(allUserProjects)
 
         return res.status(200).json({
             projects: allUserProjects
